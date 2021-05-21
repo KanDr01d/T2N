@@ -48,7 +48,6 @@ def Menu():
             Slash = list()
             for Tracker in range(len(Covert)):
                 CheckNum = Covert[Tracker]
-                CheckNum.isnumeric()
                 if CheckNum.isdigit() == True:
                     if Tracker in Number:
                         Locate += str(Covert[Tracker])
