@@ -15,6 +15,46 @@ def clear():
     else:
         _ = os.system('clear')
 
+#Input custom string
+def CustomString():
+    global Alphabet, NewAlphabet
+
+    def TryAgain():
+        sleep(2)
+        clear()
+        CustomString() 
+
+    String = str(input("Do you use custom string? (Y/N): ").upper())
+    if String == "N":
+        pass
+    elif String == "Y":
+        NewAlphabet = str(input("Input custom string: ").lower())
+        if NewAlphabet.isalpha() is not True:
+            print ("Invalid string: Only alphanumeric strings are allowed")
+            TryAgain()
+        else:
+            if len(NewAlphabet) > len(Alphabet) or len(NewAlphabet) < len(Alphabet):
+                print ("Invalid string: Your string have",len(NewAlphabet),(". Only 26 character strings are allowed"))
+                TryAgain()    
+            else:       
+                for Checker in range(len(NewAlphabet)):
+                    if NewAlphabet[Checker] in Alphabet:
+                        Count = NewAlphabet.count(NewAlphabet[Checker])
+                        if Count > 1:
+                            print ("Ay, you seen to have",Count, NewAlphabet[Checker], "in your string. What do you suppose me to do with your step-mum?")
+                            print ("Check your string carefully!")
+                            TryAgain()
+                        elif Count == 0:
+                            print ("Ay, you seen to have ",Count, NewAlphabet[Checker], "in your string. What do you suppose me to do with your missing-mum?")
+                            print ("Check your string carefully!")
+                            TryAgain()
+                        else:
+                            pass
+        Alphabet = NewAlphabet
+    else:
+        print ("SyntaxError: Unknow command")
+        TryAgain()
+
 def Menu():
     global Answer,Locate
     clear()
@@ -26,6 +66,7 @@ def Menu():
     if Info ==("c2n"):
         Answer = ""
         Convert = input("Input text: ").lower()
+        CustomString()
         for Tracker in range(len(Convert)):
             if Convert[Tracker] in Alphabet:
                 RealLocate = Alphabet.index(Convert[Tracker]) + 1
@@ -43,12 +84,13 @@ def Menu():
             Locate = str()
             print ('Use "-" to separate each number. Use "/" to keep it as number. Others characters will be ignored.')
             Covert = input("Input number: ")
+            CustomString()
             Number = list(range(len(Covert)))
             Endash = list()
             Slash = list()
             for Tracker in range(len(Covert)):
                 CheckNum = Covert[Tracker]
-                if CheckNum.isdigit() == True:
+                if CheckNum.isnumeric() == True:
                     if Tracker in Number:
                         Locate += str(Covert[Tracker])
                         if int(Locate) > len(Alphabet):
